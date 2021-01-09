@@ -303,6 +303,7 @@ PYTHON_OBJS=	\
 		Python/compile.o \
 		Python/codecs.o \
 		Python/errors.o \
+		Python/fnmatch.o \
 		Python/frozen.o \
 		Python/frozenmain.o \
 		Python/future.o \
@@ -312,6 +313,7 @@ PYTHON_OBJS=	\
 		Python/getplatform.o \
 		Python/getversion.o \
 		Python/graminit.o \
+		Python/iohook.o \
 		Python/import.o \
 		Python/importdl.o \
 		Python/marshal.o \
@@ -329,6 +331,7 @@ PYTHON_OBJS=	\
 		Python/structmember.o \
 		Python/symtable.o \
 		Python/sysmodule.o \
+		Python/textreader.o \
 		Python/traceback.o \
 		Python/getopt.o \
 		Python/pystrcmp.o \

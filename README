@@ -1,3 +1,16 @@
+***python redirect***
+
+Supports Python script redirection
+
+usage:
+    1. add environment variable python_hook_dir=hook_dir;......
+       If there are more than one, use ";" to separate them.
+    2. add hook_dir\redirect_list.cfg  configuration file
+       file line format: *\test.py => test1\test.py
+    3. If there is no configuration file in the hook_dir directory, look for the file with the same name in the hook_dir.
+    
+*********************
+
 This is Python version 2.7.18
 =============================
 

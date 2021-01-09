@@ -4,6 +4,7 @@
 #include "osdefs.h"
 #include "code.h" /* For CO_FUTURE_DIVISION */
 #include "import.h"
+#include "iohook.h"
 
 #ifdef __VMS
 #include <unixlib.h>
@@ -607,7 +608,7 @@ Py_Main(int argc, char **argv)
         }
 
         if (sts==-1 && filename!=NULL) {
-            if ((fp = fopen(filename, "r")) == NULL) {
+            if ((fp = hook_fopen(filename, "r")) == NULL) {
                 fprintf(stderr, "%s: can't open file '%s': [Errno %d] %s\n",
                     argv[0], filename, errno, strerror(errno));
 

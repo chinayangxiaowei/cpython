@@ -16,6 +16,7 @@
 #endif
 #include <stddef.h> /* For offsetof */
 #include "_iomodule.h"
+#include "../../Python/iohook.h"
 
 /*
  * Known likely problems:
@@ -370,10 +371,10 @@ fileio_init(PyObject *oself, PyObject *args, PyObject *kwds)
         errno = 0;
 #ifdef MS_WINDOWS
         if (widename != NULL)
-            self->fd = _wopen(widename, flags, 0666);
+            self->fd = hook_wopen(widename, flags, 0666);
         else
 #endif
-            self->fd = open(name, flags, 0666);
+            self->fd = hook_open(name, flags, 0666);
         Py_END_ALLOW_THREADS
         fd_is_own = 1;
         if (self->fd < 0) {

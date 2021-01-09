@@ -202,7 +202,10 @@
     <ClInclude Include="..\Parser\tokenizer.h" />
     <ClInclude Include="..\PC\errmap.h" />
     <ClInclude Include="..\PC\pyconfig.h" />
+    <ClInclude Include="..\Python\fnmatch.h" />
     <ClInclude Include="..\Python\importdl.h" />
+    <ClInclude Include="..\Python\iohook.h" />
+    <ClInclude Include="..\Python\textreader.h" />
     <ClInclude Include="..\Python\thread_nt.h" />
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +343,9 @@
     <ClCompile Include="..\PC\getpathp.c" />
     <ClCompile Include="..\PC\import_nt.c" />
     <ClCompile Include="..\PC\msvcrtmodule.c" />
+    <ClCompile Include="..\Python\fnmatch.c" />
+    <ClCompile Include="..\Python\iohook.c" />
+    <ClCompile Include="..\Python\textreader.c" />
     <ClCompile Include="..\Python\_warnings.c" />
     <ClCompile Include="..\Python\asdl.c" />
     <ClCompile Include="..\Python\ast.c" />

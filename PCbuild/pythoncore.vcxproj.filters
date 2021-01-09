@@ -411,6 +411,15 @@
     <ClInclude Include="..\Python\thread_nt.h">
       <Filter>Python</Filter>
     </ClInclude>
+    <ClInclude Include="..\Python\iohook.h">
+      <Filter>Python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Python\fnmatch.h">
+      <Filter>Python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Python\textreader.h">
+      <Filter>Python</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Modules\_bisectmodule.c">
@@ -942,6 +951,15 @@
       <Filter>Python</Filter>
     </ClCompile>
     <ClCompile Include="..\Python\traceback.c">
+      <Filter>Python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Python\textreader.c">
+      <Filter>Python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Python\fnmatch.c">
+      <Filter>Python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Python\iohook.c">
       <Filter>Python</Filter>
     </ClCompile>
   </ItemGroup>

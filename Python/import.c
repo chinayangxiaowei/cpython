@@ -14,6 +14,7 @@
 #include "eval.h"
 #include "osdefs.h"
 #include "importdl.h"
+#include "iohook.h"
 
 #ifdef HAVE_FCNTL_H
 #include <fcntl.h>
@@ -1597,7 +1598,7 @@ find_module(char *fullname, char *subname, PyObject *path, char *buf,
             filemode = fdp->mode;
             if (filemode[0] == 'U')
                 filemode = "r" PY_STDIOTEXTMODE;
-            fp = fopen(buf, filemode);
+            fp = hook_fopen(buf, filemode);
             if (fp != NULL) {
                 if (case_ok(buf, len, namelen, name))
                     break;
@@ -3111,7 +3112,7 @@ get_file(char *pathname, PyObject *fob, char *mode)
     if (fob == NULL) {
         if (mode[0] == 'U')
             mode = "r" PY_STDIOTEXTMODE;
-        fp = fopen(pathname, mode);
+        fp = hook_fopen(pathname, mode);
         if (fp == NULL)
             PyErr_SetFromErrno(PyExc_IOError);
     }

@@ -3,6 +3,7 @@
 #define PY_SSIZE_T_CLEAN
 #include "Python.h"
 #include "structmember.h"
+#include "iohook.h"
 
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
@@ -367,7 +368,7 @@ open_the_file(PyFileObject *f, char *name, char *mode)
             FILE_BEGIN_ALLOW_THREADS(f)
             /* PyUnicode_AS_UNICODE OK without thread
                lock as it is a simple dereference. */
-            f->f_fp = _wfopen(PyUnicode_AS_UNICODE(f->f_name),
+            f->f_fp = hook_wfopen(PyUnicode_AS_UNICODE(f->f_name),
                               PyUnicode_AS_UNICODE(wmode));
             FILE_END_ALLOW_THREADS(f)
         }
@@ -376,7 +377,7 @@ open_the_file(PyFileObject *f, char *name, char *mode)
 #endif
     if (NULL == f->f_fp && NULL != name) {
         FILE_BEGIN_ALLOW_THREADS(f)
-        f->f_fp = fopen(name, newmode);
+        f->f_fp = hook_fopen(name, newmode);
         FILE_END_ALLOW_THREADS(f)
     }
 
