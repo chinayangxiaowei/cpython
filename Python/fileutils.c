@@ -2,6 +2,7 @@
 #include "pycore_fileutils.h"
 #include "osdefs.h"
 #include <locale.h>
+#include "iohook.h"
 
 #ifdef MS_WINDOWS
 #  include <malloc.h>
@@ -1372,10 +1373,10 @@ _Py_wfopen(const wchar_t *path, const wchar_t *mode)
     if (cpath == NULL) {
         return NULL;
     }
-    f = fopen(cpath, cmode);
+    f = hook_fopen(cpath, cmode);
     PyMem_RawFree(cpath);
 #else
-    f = _wfopen(path, mode);
+    f = hook_wfopen(path, mode);
 #endif
     if (f == NULL)
         return NULL;
@@ -1404,7 +1405,7 @@ _Py_fopen(const char *pathname, const char *mode)
     }
     Py_DECREF(pathname_obj);
 
-    FILE *f = fopen(pathname, mode);
+    FILE *f = hook_fopen(pathname, mode);
     if (f == NULL)
         return NULL;
     if (make_non_inheritable(fileno(f)) < 0) {
@@ -1461,7 +1462,7 @@ _Py_fopen_obj(PyObject *path, const char *mode)
 
     do {
         Py_BEGIN_ALLOW_THREADS
-        f = _wfopen(wpath, wmode);
+        f = hook_wfopen(wpath, wmode);
         Py_END_ALLOW_THREADS
     } while (f == NULL
              && errno == EINTR && !(async_err = PyErr_CheckSignals()));
@@ -1482,7 +1483,7 @@ _Py_fopen_obj(PyObject *path, const char *mode)
 
     do {
         Py_BEGIN_ALLOW_THREADS
-        f = fopen(path_bytes, mode);
+        f = hook_fopen(path_bytes, mode);
         Py_END_ALLOW_THREADS
     } while (f == NULL
              && errno == EINTR && !(async_err = PyErr_CheckSignals()));

@@ -19,6 +19,7 @@
 #endif
 #include <stddef.h> /* For offsetof */
 #include "_iomodule.h"
+#include "../../Python/iohook.h"
 
 /*
  * Known likely problems:
@@ -380,9 +381,9 @@ _io_FileIO___init___impl(fileio *self, PyObject *nameobj, const char *mode,
             do {
                 Py_BEGIN_ALLOW_THREADS
 #ifdef MS_WINDOWS
-                self->fd = _wopen(widename, flags, 0666);
+                self->fd = hook_wopen(widename, flags, 0666);
 #else
-                self->fd = open(name, flags, 0666);
+                self->fd = hook_open(name, flags, 0666);
 #endif
                 Py_END_ALLOW_THREADS
             } while (self->fd < 0 && errno == EINTR &&

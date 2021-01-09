@@ -327,6 +327,7 @@ PYTHON_OBJS=	\
 		Python/context.o \
 		Python/dynamic_annotations.o \
 		Python/errors.o \
+		Python/fnmatch.o \
 		Python/frozenmain.o \
 		Python/future.o \
 		Python/getargs.o \
@@ -336,6 +337,7 @@ PYTHON_OBJS=	\
 		Python/getversion.o \
 		Python/graminit.o \
 		Python/hamt.o \
+		Python/iohook.o \
 		Python/import.o \
 		Python/importdl.o \
 		Python/initconfig.o \
@@ -359,6 +361,7 @@ PYTHON_OBJS=	\
 		Python/structmember.o \
 		Python/symtable.o \
 		Python/sysmodule.o \
+		Python/textreader.o \
 		Python/thread.o \
 		Python/traceback.o \
 		Python/getopt.o \

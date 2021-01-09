@@ -267,7 +267,10 @@
     <ClInclude Include="..\PC\pyconfig.h" />
     <ClInclude Include="..\Python\ceval_gil.h" />
     <ClInclude Include="..\Python\condvar.h" />
+    <ClInclude Include="..\Python\fnmatch.h" />
     <ClInclude Include="..\Python\importdl.h" />
+    <ClInclude Include="..\Python\iohook.h" />
+    <ClInclude Include="..\Python\textreader.h" />
     <ClInclude Include="..\Python\thread_nt.h" />
     <ClInclude Include="..\Python\wordcode_helpers.h" />
   </ItemGroup>
@@ -410,7 +413,10 @@
     <ClCompile Include="..\PC\config.c" />
     <ClCompile Include="..\PC\getpathp.c" />
     <ClCompile Include="..\PC\msvcrtmodule.c" />
+    <ClCompile Include="..\Python\fnmatch.c" />
+    <ClCompile Include="..\Python\iohook.c" />
     <ClCompile Include="..\Python\pyhash.c" />
+    <ClCompile Include="..\Python\textreader.c" />
     <ClCompile Include="..\Python\_warnings.c" />
     <ClCompile Include="..\Python\asdl.c" />
     <ClCompile Include="..\Python\ast.c" />
@@ -518,7 +524,6 @@
   <Target Name="_WarnAboutZlib" BeforeTargets="PrepareForBuild" Condition="!$(IncludeExternals)">
     <Warning Text="Not including zlib is not a supported configuration." />
   </Target>
-
   <Target Name="_CopyVCRuntime" AfterTargets="Build" Inputs="@(VCRuntimeDLL)" Outputs="$(OutDir)%(Filename)%(Extension)" DependsOnTargets="FindVCRuntime">
     <!-- bpo-38597: When we switch to another VCRuntime DLL, include vcruntime140.dll as well -->
     <Warning Text="A copy of vcruntime140.dll is also required" Condition="!$(VCToolsRedistVersion.StartsWith(`14.`))" />
