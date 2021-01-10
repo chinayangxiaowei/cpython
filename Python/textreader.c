@@ -211,12 +211,12 @@ void add_line(text_line_list* list, wchar_t* str) {
         if (list->begin == NULL)
             list->begin = item;
 
-        if (list->end == NULL) {
-            list->end = item;
-        }
-        else {
+        if (list->end) {
             list->end->next = item;
         }
+
+        list->end = item;
+
         list->count++;
     }
 }
@@ -256,22 +256,26 @@ unsigned int read_text_lines(FILE* file, text_line_list* list) {
         len = fgetslen(file, encode, 0);
         if (len == 0) break;
 
-        buf = (char*)malloc(len + 2);
+        buf = (char*)malloc(len + sizeof(wchar_t));
         if (buf) {
             n = fgetline((void*)buf, file, encode);
-            buf[n] = '\0'; n++;
-            buf[n] = '\0';
+            memset(&buf[n],0,sizeof(wchar_t));
 
             if (encode == text_encode_ucs2_little || encode == text_encode_ucs2_big) {
                 add_line(list, (wchar_t*)buf);
             }
             else if (encode == text_encode_utf8 || encode == text_encode_utf8_bom) {
-                add_line(list, UTF8ToUCS2(buf));
+                wchar_t *wstr=UTF8ToUCS2(buf);
+                if (wstr){
+                    add_line(list, wstr);
+                }
+                free(buf);
             }
             else {
-                wbuf = (wchar_t*)malloc(1024 * 2);
+                //The fixed buffer width is used here, and it can be changed to a lager buffer size if necessary.
+                wbuf = (wchar_t*)malloc(2048 * sizeof(wchar_t));
                 if (wbuf) {
-                    n = mbstowcs(wbuf, buf, 1024);
+                    n = mbstowcs(wbuf, buf, 2048);
                     if (n > 0) {
                         add_line(list, wbuf);
                     }
@@ -506,7 +510,7 @@ wchar_t* UTF8ToUCS2(const char* utf8)
 {
     size_t len = strlen(utf8);
     size_t wcharSize = UTF16Length(utf8, len);
-    wchar_t* w = malloc((wcharSize + 1)*2);
+    wchar_t* w = malloc((wcharSize + 1)*sizeof(wchar_t));
     if (!w) return NULL;
     UTF16FromUTF8(utf8, len, w, wcharSize + 1);
     w[wcharSize] = 0;
